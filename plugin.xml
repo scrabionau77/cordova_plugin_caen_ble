@@ -10,7 +10,7 @@
         <clobbers target="caenBle"/>
     </js-module>
     <platform name="android">
-        <source-file src="src/android/MaeCaenBLE.java" target-dir="src/com/maestrale/maecaenble" />
+        <source-file src="src/android/MaeCaenBle.java" target-dir="src/com/maestrale/maecaenble" />
         <source-file src="libs/CAENRFIDLibrary-release.aar" target-dir="libs" />
 
         <config-file target="res/xml/config.xml" parent="/*">
