@@ -1,4 +1,5 @@
-package android;
+//package android;
+package MaeCaenBle;
 
 import org.apache.cordova.*;
 import org.json.JSONArray;
