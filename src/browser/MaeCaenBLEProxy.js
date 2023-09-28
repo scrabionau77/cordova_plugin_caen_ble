@@ -12,7 +12,7 @@ function discoverDevices(success, error) {
 }
 
 function connectToDevice(address, success, error) {
-    success(address);
+    success();
 }
 
 function stopDiscovery(success, error) {
