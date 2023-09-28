@@ -1,0 +1,20 @@
+{
+    "name": "maecaenbleplugin",
+    "version": "0.0.1",
+    "description": "A custom Cordova BLE plugin",
+    "cordova": {
+      "id": "maecaenbleplugin",
+      "platforms": ["android"]
+    },
+    "engines": [
+      {
+        "name": "cordova",
+        "version": ">=3.0.0"
+      },
+      {
+        "name": "cordova-android",
+        "version": ">=4.0.0"
+      }
+    ]
+  }
+  

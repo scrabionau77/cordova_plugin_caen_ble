@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+        id="maecaenbleplugin"
+        version="0.0.1">
+
+    <name>MyBluetoothPlugin</name>
+    <description>Cordova Bluetooth Plugin for CAEN</description>
+    <engines>
+        <engine name="cordova" version=">=7.1.0"/>
+        <engine name="cordova-android" version=">=6.3.0"/>
+    </engines>
+    <js-module src="www/ble.js" name="CaenBle">
+        <clobbers target="caenble"/>
+    </js-module>
+    <platform name="android">
+        <source-file src="src/android/MyBluetoothPlugin.java" target-dir="src/com/mycompany/mybluetoothplugin" />
+        <source-file src="libs/CAENRFIDLibrary-release.aar" target-dir="libs" />
+
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="MyBluetoothPlugin">
+                <param name="android-package" value="com.mycompany.mybluetoothplugin.MyBluetoothPlugin"/>
+            </feature>
+        </config-file>
+
+        <config-file target="AndroidManifest.xml" parent="/manifest">
+            <uses-permission android:name="android.permission.BLUETOOTH"/>
+            <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+            <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+            <uses-permission android:name="android.permission.BLUETOOTH_SCAN" />
+            <uses-permission android:name="android.permission.INTERNET" />
+            <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+            <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+        </config-file>
+    </platform>
+</plugin>
