@@ -1,6 +1,6 @@
 var exec = require('cordova/exec')
 
-var maeCaenBlePlugin = {
+var caenBle = {
     discoverDevices: function(successCallback, errorCallback) {
         cordova.exec(successCallback, errorCallback, "MyBluetoothPlugin", "discoverDevices", []);
     },
@@ -30,4 +30,4 @@ var maeCaenBlePlugin = {
     }
 };
 
-module.exports = maeCaenBlePlugin;
+module.exports = caenBle;

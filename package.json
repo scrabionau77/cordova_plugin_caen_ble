@@ -1,20 +1,19 @@
 {
-    "name": "maecaenbleplugin",
-    "version": "0.0.1",
-    "description": "A custom Cordova BLE plugin",
+    "name": "cordova-plugin-caen-ble",
+    "version": "1.0.0",
+    "description": "Implement CAEN BLE protocol",
     "cordova": {
-      "id": "maecaenbleplugin",
-      "platforms": ["android"]
+      "id": "cordova-plugin-caen-ble",
+      "platforms": [
+        "android",
+        "browser"
+      ]
     },
-    "engines": [
-      {
-        "name": "cordova",
-        "version": ">=3.0.0"
-      },
-      {
-        "name": "cordova-android",
-        "version": ">=4.0.0"
-      }
-    ]
+    "engines": {
+      "cordova": ">=9.0.0",
+      "cordova-android": ">=8.0.0"
+    },
+    "author": "Michelangelo Cellulosi and Daniele Pellerucci @ Maestrale Information Technology",
+    "license": "MIT"
   }
   
