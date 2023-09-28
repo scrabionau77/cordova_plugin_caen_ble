@@ -48,7 +48,7 @@ module.exports = {
     disconnectDevice: disconnectDevice,
     requestPermissions: requestPermissions,
     startTagCheck: startTagCheck,
-    stopTagCheck: readGpstopTagCheckioValue,
+    stopTagCheck: stopTagCheck,
 };
 
 require("cordova/exec/proxy").add("caenBle",module.exports);
