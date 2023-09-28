@@ -1,9 +1,11 @@
 function discoverDevices(success, error) {
     var code = window.prompt("Type Y to success response, any other to fail response");
     if(code == "Y") {
-        var result = {
-            success: true
-        };
+        var result = [
+            {
+                address: '1234-abcd-5678-efgh'
+            }
+        ];
         success(result);
     } else {
         error("No devices");
