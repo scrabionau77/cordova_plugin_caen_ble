@@ -32,7 +32,7 @@ function startTagCheck(success, error) {
     var result = {
         NumberTags: 1,
         TagList: [
-            { Antenna: 0, Id: "E28011700000020F71C535F1", epc: 'Test 1', rssi: '10', TimeStamp: now.getTime() }
+            { Antenna: 0, Id: "E28011700000020F71C535F1", epc: '000360143256', rssi: '10', TimeStamp: now.getTime() }
         ]
     }
     success(result);
