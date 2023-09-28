@@ -39,7 +39,7 @@ import com.caen.RFIDLibrary.CAENRFIDException;
 import com.caen.RFIDLibrary.CAENRFIDLogicalSource;
 import com.caen.RFIDLibrary.CAENRFIDReader;
 
-public class MyBluetoothPlugin extends CordovaPlugin {
+public class MaeCaenBle extends CordovaPlugin {
 
     private static final int MY_PERMISSIONS_REQUEST_CODE = 100;
     private static final int REQUEST_ENABLE_BT = 200;
@@ -107,7 +107,7 @@ public class MyBluetoothPlugin extends CordovaPlugin {
                     MY_PERMISSIONS_REQUEST_CODE);
         }
         bluetoothLeScanner.startScan(scanCallback);
-        Log.d("MyBluetoothPlugin", "Scansione iniziata...");
+        Log.d("MaeCaenBle", "Scansione iniziata...");
     }
 
     private void stopDiscovery(CallbackContext callbackContext) {
@@ -123,10 +123,10 @@ public class MyBluetoothPlugin extends CordovaPlugin {
         }
         if (bluetoothLeScanner != null) {
             bluetoothLeScanner.stopScan(scanCallback);
-            Log.d("MyBluetoothPlugin", "Scansione arrestata");
+            Log.d("MaeCaenBle", "Scansione arrestata");
             callbackContext.success("Scansione arrestata");
         } else {
-            Log.d("MyBluetoothPlugin", "Scansione non iniziata o scanner non disponibile");
+            Log.d("MaeCaenBle", "Scansione non iniziata o scanner non disponibile");
             callbackContext.error("Scansione non iniziata o scanner non disponibile");
         }
     }
@@ -181,7 +181,7 @@ public class MyBluetoothPlugin extends CordovaPlugin {
             gatt.discoverServices();
             //gatt.connect();
             r.Connect(cordova.getContext(), device);
-            Log.d("MyBluetoothPlugin", "Connesso al dispositivo con indirizzo " + address);
+            Log.d("MaeCaenBle", "Connesso al dispositivo con indirizzo " + address);
         }
     }
 
@@ -196,13 +196,13 @@ public class MyBluetoothPlugin extends CordovaPlugin {
                 ActivityCompat.requestPermissions(cordova.getActivity(), new String[]{Manifest.permission.BLUETOOTH_CONNECT}, MY_PERMISSIONS_REQUEST_CODE);
             }
             if (newState == BluetoothProfile.STATE_CONNECTED) {
-                Log.d("MyBluetoothPlugin", "Connesso al dispositivo");
-                Log.d("MyBluetoothPlugin", "Lo stato della connessione PRIMA del gatt.discoverServices è " + status);
+                Log.d("MaeCaenBle", "Connesso al dispositivo");
+                Log.d("MaeCaenBle", "Lo stato della connessione PRIMA del gatt.discoverServices è " + status);
                 gatt.discoverServices();
-                Log.d("MyBluetoothPlugin", "Lo stato della connessione DOPO del gatt.discoverServices è " + status);
+                Log.d("MaeCaenBle", "Lo stato della connessione DOPO del gatt.discoverServices è " + status);
             } else if (newState == BluetoothProfile.STATE_DISCONNECTED) {
-                Log.d("MyBluetoothPlugin", "Disconnesso dal dispositivo");
-                Log.d("MyBluetoothPlugin", "Lo stato della connessione è " + status);
+                Log.d("MaeCaenBle", "Disconnesso dal dispositivo");
+                Log.d("MaeCaenBle", "Lo stato della connessione è " + status);
             }
         }
 
@@ -227,7 +227,7 @@ public class MyBluetoothPlugin extends CordovaPlugin {
             BluetoothGattCharacteristic characteristic = readQueue.poll();
             gatt.readCharacteristic(characteristic);
         } else {
-            Log.d("MyBluetoothPlugin", "Tutte le caratteristiche sono state lette.");
+            Log.d("MaeCaenBle", "Tutte le caratteristiche sono state lette.");
         }
     }
 
@@ -275,10 +275,10 @@ public class MyBluetoothPlugin extends CordovaPlugin {
             gatt.disconnect();
             gatt.close();
             gatt = null;
-            Log.d("MyBluetoothPlugin", "Disconnesso con successo!");
+            Log.d("MaeCaenBle", "Disconnesso con successo!");
             callbackContext.success("Disconnesso con successo.");
         } else {
-            Log.d("MyBluetoothPlugin", "Nessun dispositivo connesso!");
+            Log.d("MaeCaenBle", "Nessun dispositivo connesso!");
             callbackContext.error("Nessun dispositivo connesso.");
         }
     }
@@ -310,9 +310,9 @@ public class MyBluetoothPlugin extends CordovaPlugin {
         switch (requestCode) {
             case REQUEST_ENABLE_BT:
                 if (resultCode == Activity.RESULT_OK) {
-                    Log.d("MyBluetoothPlugin", "Bluetooth abilitato");
+                    Log.d("MaeCaenBle", "Bluetooth abilitato");
                 } else {
-                    Log.d("MyBluetoothPlugin", "Bluetooth non abilitato");
+                    Log.d("MaeCaenBle", "Bluetooth non abilitato");
                 }
                 break;
         }
@@ -326,9 +326,9 @@ public class MyBluetoothPlugin extends CordovaPlugin {
         switch (requestCode) {
             case REQUEST_LOCATION_PERMISSION:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    Log.d("MyBluetoothPlugin", "Permesso di accesso alla posizione concesso");
+                    Log.d("MaeCaenBle", "Permesso di accesso alla posizione concesso");
                 } else {
-                    Log.d("MyBluetoothPlugin", "Permesso di accesso alla posizione non concesso");
+                    Log.d("MaeCaenBle", "Permesso di accesso alla posizione non concesso");
                 }
                 break;
         }
@@ -340,35 +340,35 @@ public class MyBluetoothPlugin extends CordovaPlugin {
     private void getSourcesTag(CallbackContext callbackContext) throws CAENRFIDException {
         CAENRFIDLogicalSource[] sourcesTag = r.GetSources();
         CAENRFIDTag[] tags = sourcesTag[0].InventoryTag();
-        Log.d("MyBluetoothPlugin", "Questo è l'array di tags: " + Arrays.toString(tags));
+        Log.d("MaeCaenBle", "Questo è l'array di tags: " + Arrays.toString(tags));
         if(tags == null || tags.length == 0){
             callbackContext.error("Nessun tag nelle vicinanze");
-            Log.d("MyBluetoothPlugin", "Nessun tag nelle vicinanze");
+            Log.d("MaeCaenBle", "Nessun tag nelle vicinanze");
             return;
         }
         else{
             ArrayList<String> estratti = new ArrayList<>();
             for (CAENRFIDTag tag : tags){
                 byte[] epc = tag.GetId();
-                Log.d("MyBluetoothPlugin", "Questo è l'array di byte (EPC): " + Arrays.toString(epc));
+                Log.d("MaeCaenBle", "Questo è l'array di byte (EPC): " + Arrays.toString(epc));
                 StringBuilder hex_number = new StringBuilder();
                 for (byte b : epc){
                     hex_number.append(String.format("%02X", b));
                 }
-                Log.d("MyBluetoothPlugin", "Questa è la stringa in hex " + hex_number);
+                Log.d("MaeCaenBle", "Questa è la stringa in hex " + hex_number);
                 StringBuilder asciiString = new StringBuilder();
                 for(int i = 0; i < hex_number.length(); i+=2){
                     String hexChar = hex_number.substring(i, i + 2);
                     asciiString.append((char) Integer.parseInt(hexChar, 16));
                 }
-                Log.d("MyBluetoothPlugin", "Questo è la stringa in ascii: " + asciiString);
+                Log.d("MaeCaenBle", "Questo è la stringa in ascii: " + asciiString);
                 String rssi = String.valueOf(tag.GetRSSI());
                 estratti.add(String.valueOf(asciiString));
                 estratti.add(rssi);
             }
             JSONArray jsonArray = new JSONArray(estratti);
             callbackContext.success(jsonArray);
-            Log.d("MyBluetoothPlugin", "Ho estratto questi tag [EPC, RSSI] (i primi 2 valori corrispondono ad un tag e così via): " + estratti);
+            Log.d("MaeCaenBle", "Ho estratto questi tag [EPC, RSSI] (i primi 2 valori corrispondono ad un tag e così via): " + estratti);
         }
     }
 
