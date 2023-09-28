@@ -11,7 +11,7 @@ function discoverDevices(success, error) {
     }
 }
 
-function connectToDevice(address, success, error) {
+function connectToDevice(success, error, address) {
     success();
 }
 
