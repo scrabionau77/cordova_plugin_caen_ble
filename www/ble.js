@@ -1,6 +1,6 @@
 var exec = require('cordova/exec')
 
-var caenBle = {
+var CaenBle = {
     discoverDevices: function(successCallback, errorCallback) {
         cordova.exec(successCallback, errorCallback, "CaenBle", "discoverDevices", []);
     },
@@ -30,4 +30,4 @@ var caenBle = {
     }
 };
 
-module.exports = caenBle;
+module.exports = CaenBle;
