@@ -43,7 +43,11 @@ public class CaenBle extends CordovaPlugin {
 
     private static final int MY_PERMISSIONS_REQUEST_CODE = 100;
     private static final int REQUEST_ENABLE_BT = 200;
-    private static final int REQUEST_LOCATION_PERMISSION = 201;
+    private static final int REQUEST_BT_PERMISSION = 201;
+    private static final int REQUEST_BT_ADMIN_PERMISSION = 202;
+    private static final int REQUEST_BT_SCAN_PERMISSION = 203;
+    private static final int REQUEST_BT_CONNECT_PERMISSION = 204;
+    private static final int REQUEST_LOCATION_PERMISSION = 205;
     UUID MY_CHARACTERISTIC_UUID = UUID.fromString("00002a19-0000-1000-8000-00805f9b34fb");
     private BluetoothAdapter bluetoothAdapter;
     private BluetoothLeScanner bluetoothLeScanner;
@@ -297,6 +301,18 @@ public class CaenBle extends CordovaPlugin {
             cordova.startActivityForResult(this, enableBtIntent, REQUEST_ENABLE_BT);
         }
 
+        if (ContextCompat.checkSelfPermission(cordova.getActivity(), Manifest.permission.BLUETOOTH) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(cordova.getActivity(), new String[]{Manifest.permission.BLUETOOTH}, REQUEST_BT_PERMISSION);
+        }
+        if (ContextCompat.checkSelfPermission(cordova.getActivity(), Manifest.permission.BLUETOOTH_ADMIN) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(cordova.getActivity(), new String[]{Manifest.permission.BLUETOOTH_ADMIN}, REQUEST_BT_ADMIN_PERMISSION);
+        }
+        if (ContextCompat.checkSelfPermission(cordova.getActivity(), Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(cordova.getActivity(), new String[]{Manifest.permission.BLUETOOTH_CONNECT}, REQUEST_BT_CONNECT_PERMISSION);
+        }
+        if (ContextCompat.checkSelfPermission(cordova.getActivity(), Manifest.permission.BLUETOOTH_SCAN) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(cordova.getActivity(), new String[]{Manifest.permission.BLUETOOTH_SCAN}, REQUEST_BT_SCAN_PERMISSION);
+        }
         if (ContextCompat.checkSelfPermission(cordova.getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(cordova.getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION_PERMISSION);
         }
