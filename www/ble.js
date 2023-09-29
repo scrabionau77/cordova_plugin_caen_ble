@@ -1,4 +1,5 @@
-var exec = require('cordova/exec')
+var exec = require('cordova/exec');
+var connectionStatusCallback = null;
 
 var CaenBle = {
     discoverDevices: function(successCallback, errorCallback) {
@@ -27,7 +28,20 @@ var CaenBle = {
 
     stopTagCheck: function(successCallback, errorCallback) {
         cordova.exec(successCallback, errorCallback, "CaenBle", "stopTagCheck", []);
-    }
+    },
+    registerConnectionCallback: function(callback) {
+        connectionStatusCallback = callback;
+        cordova.exec(function(status) {
+            if (connectionStatusCallback) {
+                connectionStatusCallback(status);
+            }
+        }, null, "CaenBle", "registerConnectionCallback", []);
+    },
+    /*
+    registerConnectionCallback: function(successCallback) {
+        cordova.exec(successCallback, "CaenBle", "registerConnectionCallback", []);
+    },
+    */
 };
 
 module.exports = CaenBle;

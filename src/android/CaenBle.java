@@ -51,6 +51,7 @@ public class CaenBle extends CordovaPlugin {
     private BluetoothAdapter bluetoothAdapter;
     private BluetoothLeScanner bluetoothLeScanner;
     private CallbackContext callbackContext;
+    private CallbackContext connectionCallbackContext;
     private BluetoothGatt gatt;
     private Queue<BluetoothGattCharacteristic> readQueue = new LinkedList<>();
     CAENRFIDReader r = new CAENRFIDReader();
@@ -65,6 +66,7 @@ public class CaenBle extends CordovaPlugin {
             discoverDevices();
             return true;
         } else if ("connectToDevice".equals(action)) {
+            connectionCallbackContext = callbackContext;
             String address = args.getString(0);
             try {
                 connectToDevice(address);
@@ -87,6 +89,12 @@ public class CaenBle extends CordovaPlugin {
             return true;
         } else if (action.equals("stopTagCheck")) {
             stopTagCheck(callbackContext);
+            return true;
+        } else if ("registerConnectionCallback".equals(action)) {
+            this.connectionCallbackContext = callbackContext;
+            PluginResult pluginResult = new PluginResult(PluginResult.Status.NO_RESULT);
+            pluginResult.setKeepCallback(true);
+            callbackContext.sendPluginResult(pluginResult);
             return true;
         }
 
@@ -236,22 +244,30 @@ public class CaenBle extends CordovaPlugin {
             if (ContextCompat.checkSelfPermission(cordova.getActivity(),
                     Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(cordova.getActivity(),
-                        new String[] { Manifest.permission.BLUETOOTH_CONNECT }, MY_PERMISSIONS_REQUEST_CODE);
+                        new String[]{Manifest.permission.BLUETOOTH_CONNECT}, MY_PERMISSIONS_REQUEST_CODE);
             }
             if (newState == BluetoothProfile.STATE_CONNECTED) {
                 Log.d("MyBluetoothPlugin", "Connesso al dispositivo");
                 Log.d("MyBluetoothPlugin", "Lo stato della connessione PRIMA del gatt.discoverServices è " + status);
                 gatt.discoverServices();
-                callbackContext.success("Connected");
                 Log.d("MyBluetoothPlugin", "Lo stato della connessione DOPO del gatt.discoverServices è " + status);
             } else if (newState == BluetoothProfile.STATE_DISCONNECTED) {
                 Log.d("MyBluetoothPlugin", "Disconnesso dal dispositivo");
                 Log.d("MyBluetoothPlugin", "Lo stato della connessione è " + status);
-                callbackContext.error("Disconnected");
+                sendConnectionStatus("Disconnected");
             }
         }
-
+    
     };
+
+    private void sendConnectionStatus(String status) {
+        if (connectionCallbackContext != null) {
+            PluginResult result = new PluginResult(PluginResult.Status.OK, status);
+            result.setKeepCallback(true);
+            connectionCallbackContext.sendPluginResult(result);
+        }
+    }
+    
 
     /**
      * Questi 2 metodi venivano utilizzati precedentemente per scoprire i servizi
