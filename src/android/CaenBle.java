@@ -177,9 +177,14 @@ public class CaenBle extends CordovaPlugin {
                 }
                 deviceInfo.put("name", device.getName());
                 deviceInfo.put("address", device.getAddress());
-                callbackContext.success(deviceInfo);
+                // callbackContext.success(deviceInfo);
+                PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, deviceInfo);
+                pluginResult.setKeepCallback(true); // Mantieni la callback per ulteriori risultati
+                callbackContext.sendPluginResult(pluginResult);
             } catch (JSONException e) {
-                callbackContext.error("Error processing device info.");
+                //callbackContext.error("Error processing device info.");
+                PluginResult pluginResult = new PluginResult(PluginResult.Status.JSON_EXCEPTION);
+                callbackContext.sendPluginResult(pluginResult);
             }
         }
     };
@@ -375,38 +380,45 @@ public class CaenBle extends CordovaPlugin {
                     },
                     MY_PERMISSIONS_REQUEST_CODE);
         }
-        
+
         /*
-        if (ContextCompat.checkSelfPermission(cordova.getActivity(),
-                Manifest.permission.BLUETOOTH) != PackageManager.PERMISSION_GRANTED) {
-            Log.d("MyBluetoothPlugin", "permesso BT");
-            ActivityCompat.requestPermissions(cordova.getActivity(), new String[] { Manifest.permission.BLUETOOTH },
-                    REQUEST_BT_PERMISSION);
-        }
-        if (ContextCompat.checkSelfPermission(cordova.getActivity(),
-                Manifest.permission.BLUETOOTH_ADMIN) != PackageManager.PERMISSION_GRANTED) {
-            Log.d("MyBluetoothPlugin", "permesso BT ADMIN");
-            ActivityCompat.requestPermissions(cordova.getActivity(),
-                    new String[] { Manifest.permission.BLUETOOTH_ADMIN }, REQUEST_BT_ADMIN_PERMISSION);
-        }
-        if (ContextCompat.checkSelfPermission(cordova.getActivity(),
-                Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
-            Log.d("MyBluetoothPlugin", "permesso BT CONNECT");
-            ActivityCompat.requestPermissions(cordova.getActivity(),
-                    new String[] { Manifest.permission.BLUETOOTH_CONNECT }, REQUEST_BT_CONNECT_PERMISSION);
-        }
-        if (ContextCompat.checkSelfPermission(cordova.getActivity(),
-                Manifest.permission.BLUETOOTH_SCAN) != PackageManager.PERMISSION_GRANTED) {
-            Log.d("MyBluetoothPlugin", "permesso SCAN");
-            ActivityCompat.requestPermissions(cordova.getActivity(),
-                    new String[] { Manifest.permission.BLUETOOTH_SCAN }, REQUEST_BT_SCAN_PERMISSION);
-        }
-        if (ContextCompat.checkSelfPermission(cordova.getActivity(),
-                Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(cordova.getActivity(),
-                    new String[] { Manifest.permission.ACCESS_FINE_LOCATION }, REQUEST_LOCATION_PERMISSION);
-        }
-        */
+         * if (ContextCompat.checkSelfPermission(cordova.getActivity(),
+         * Manifest.permission.BLUETOOTH) != PackageManager.PERMISSION_GRANTED) {
+         * Log.d("MyBluetoothPlugin", "permesso BT");
+         * ActivityCompat.requestPermissions(cordova.getActivity(), new String[] {
+         * Manifest.permission.BLUETOOTH },
+         * REQUEST_BT_PERMISSION);
+         * }
+         * if (ContextCompat.checkSelfPermission(cordova.getActivity(),
+         * Manifest.permission.BLUETOOTH_ADMIN) != PackageManager.PERMISSION_GRANTED) {
+         * Log.d("MyBluetoothPlugin", "permesso BT ADMIN");
+         * ActivityCompat.requestPermissions(cordova.getActivity(),
+         * new String[] { Manifest.permission.BLUETOOTH_ADMIN },
+         * REQUEST_BT_ADMIN_PERMISSION);
+         * }
+         * if (ContextCompat.checkSelfPermission(cordova.getActivity(),
+         * Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED)
+         * {
+         * Log.d("MyBluetoothPlugin", "permesso BT CONNECT");
+         * ActivityCompat.requestPermissions(cordova.getActivity(),
+         * new String[] { Manifest.permission.BLUETOOTH_CONNECT },
+         * REQUEST_BT_CONNECT_PERMISSION);
+         * }
+         * if (ContextCompat.checkSelfPermission(cordova.getActivity(),
+         * Manifest.permission.BLUETOOTH_SCAN) != PackageManager.PERMISSION_GRANTED) {
+         * Log.d("MyBluetoothPlugin", "permesso SCAN");
+         * ActivityCompat.requestPermissions(cordova.getActivity(),
+         * new String[] { Manifest.permission.BLUETOOTH_SCAN },
+         * REQUEST_BT_SCAN_PERMISSION);
+         * }
+         * if (ContextCompat.checkSelfPermission(cordova.getActivity(),
+         * Manifest.permission.ACCESS_FINE_LOCATION) !=
+         * PackageManager.PERMISSION_GRANTED) {
+         * ActivityCompat.requestPermissions(cordova.getActivity(),
+         * new String[] { Manifest.permission.ACCESS_FINE_LOCATION },
+         * REQUEST_LOCATION_PERMISSION);
+         * }
+         */
     }
 
     /**
