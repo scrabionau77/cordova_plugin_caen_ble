@@ -242,7 +242,7 @@ public class CaenBle extends CordovaPlugin {
                 Log.d("MyBluetoothPlugin", "Connesso al dispositivo");
                 Log.d("MyBluetoothPlugin", "Lo stato della connessione PRIMA del gatt.discoverServices è " + status);
                 gatt.discoverServices();
-                callbackContext.error("Connected");
+                callbackContext.success("Connected");
                 Log.d("MyBluetoothPlugin", "Lo stato della connessione DOPO del gatt.discoverServices è " + status);
             } else if (newState == BluetoothProfile.STATE_DISCONNECTED) {
                 Log.d("MyBluetoothPlugin", "Disconnesso dal dispositivo");
