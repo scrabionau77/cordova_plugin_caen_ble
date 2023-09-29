@@ -52,6 +52,7 @@ public class CaenBle extends CordovaPlugin {
     private BluetoothLeScanner bluetoothLeScanner;
     private CallbackContext callbackContext;
     private CallbackContext connectionCallbackContext;
+    private CallbackContext callbackContextConnect;
     private BluetoothGatt gatt;
     private Queue<BluetoothGattCharacteristic> readQueue = new LinkedList<>();
     CAENRFIDReader r = new CAENRFIDReader();
@@ -229,6 +230,7 @@ public class CaenBle extends CordovaPlugin {
             gatt.discoverServices();
             // gatt.connect();
             r.Connect(cordova.getContext(), device);
+            callbackContextConnect.success("Connected");
             Log.d("MyBluetoothPlugin", "Connesso al dispositivo con indirizzo " + address);
         }
     }
