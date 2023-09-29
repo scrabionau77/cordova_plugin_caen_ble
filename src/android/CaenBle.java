@@ -1,5 +1,5 @@
 //package android;
-package MaeCaenBle;
+package CaenBle;
 
 import org.apache.cordova.*;
 import org.json.JSONArray;
@@ -39,7 +39,7 @@ import com.caen.RFIDLibrary.CAENRFIDException;
 import com.caen.RFIDLibrary.CAENRFIDLogicalSource;
 import com.caen.RFIDLibrary.CAENRFIDReader;
 
-public class MaeCaenBle extends CordovaPlugin {
+public class CaenBle extends CordovaPlugin {
 
     private static final int MY_PERMISSIONS_REQUEST_CODE = 100;
     private static final int REQUEST_ENABLE_BT = 200;
