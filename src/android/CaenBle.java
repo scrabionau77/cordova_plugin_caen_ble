@@ -502,7 +502,7 @@ public class CaenBle extends CordovaPlugin {
                 }
                 Log.d("MyBluetoothPlugin", "Questo è la stringa in ascii: " + asciiString);
                 String rssi = String.valueOf(tag.GetRSSI());
-                estratti.add(String.valueOf(asciiString));
+                estratti.add(String.valueOf(hex_number));
                 estratti.add(rssi);
             }
             JSONArray jsonArray = new JSONArray(estratti);
