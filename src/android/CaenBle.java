@@ -486,7 +486,7 @@ public class CaenBle extends CordovaPlugin {
         if (tags == null || tags.length == 0) {
             Log.d("MyBluetoothPlugin", "Nessun tag nelle vicinanze");
         } else {
-            ArrayList<String> estratti = new ArrayList<>();
+            ArrayList<JSONObject> estratti = new ArrayList<>();
             for (CAENRFIDTag tag : tags) {
                 byte[] epc = tag.GetId();
                 Log.d("MyBluetoothPlugin", "Questo è l'array di byte (EPC): " + Arrays.toString(epc));
