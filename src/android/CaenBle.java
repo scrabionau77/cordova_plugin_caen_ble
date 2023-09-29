@@ -149,7 +149,7 @@ public class CaenBle extends CordovaPlugin {
     }
 
     /**
-     * La scanCallback prende il nome e l'address dei dispositivi che trova
+     * La scanCallback prende il nome e l'address dei dispositivi
      */
     private ScanCallback scanCallback = new ScanCallback() {
         @Override
