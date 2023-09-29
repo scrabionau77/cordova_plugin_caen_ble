@@ -347,6 +347,27 @@ public class CaenBle extends CordovaPlugin {
                     Log.d("MyBluetoothPlugin", "Permesso di accesso alla posizione non concesso");
                 }
                 break;
+            case REQUEST_BT_PERMISSION:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Log.d("MyBluetoothPlugin", "Permesso di accesso al BT concesso");
+                } else {
+                    Log.d("MyBluetoothPlugin", "Permesso di accesso al BT non concesso");
+                }
+                break;
+            case REQUEST_BT_ADMIN_PERMISSION:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Log.d("MyBluetoothPlugin", "Permesso di accesso al BT Admin concesso");
+                } else {
+                    Log.d("MyBluetoothPlugin", "Permesso di accesso al BT Admin non concesso");
+                }
+                break;
+            case REQUEST_BT_SCAN_PERMISSION:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Log.d("MyBluetoothPlugin", "Permesso di accesso al BT Scan concesso");
+                } else {
+                    Log.d("MyBluetoothPlugin", "Permesso di accesso al BT Scan non concesso");
+                }
+                break;
         }
     }
 
