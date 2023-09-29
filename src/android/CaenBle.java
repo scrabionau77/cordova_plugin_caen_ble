@@ -502,10 +502,14 @@ public class CaenBle extends CordovaPlugin {
                 }
                 Log.d("MyBluetoothPlugin", "Questo è la stringa in ascii: " + asciiString);
                 String rssi = String.valueOf(tag.GetRSSI());
-                JSONObject tagInfo = new JSONObject();
-                tagInfo.put("hex_number", hex_number.toString());
-                tagInfo.put("rssi", rssi);
-                estratti.add(tagInfo);
+                try {
+                    JSONObject tagInfo = new JSONObject();
+                    tagInfo.put("hex_number", hex_number.toString());
+                    tagInfo.put("rssi", rssi);
+                    estratti.add(tagInfo);
+                } catch (JSONException e) {
+                    Log.e("MyBluetoothPlugin", "Errore nella creazione dell'oggetto JSON", e);
+                }
             }
             JSONArray jsonArray = new JSONArray(estratti);
             callbackContext.success(jsonArray);
