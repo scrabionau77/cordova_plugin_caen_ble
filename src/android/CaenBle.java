@@ -486,7 +486,6 @@ public class CaenBle extends CordovaPlugin {
         if (tags == null || tags.length == 0) {
             callbackContext.error("Nessun tag nelle vicinanze");
             Log.d("MyBluetoothPlugin", "Nessun tag nelle vicinanze");
-            return;
         } else {
             ArrayList<String> estratti = new ArrayList<>();
             for (CAENRFIDTag tag : tags) {
