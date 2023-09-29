@@ -3,7 +3,8 @@ function discoverDevices(success, error) {
     if(code == "Y") {
         var result =
             {
-                address: '1234-abcd-5678-efgh'
+                address: '1234-abcd-5678-efgh',
+                name: 'skID-23240030'
             };
         success(result);
     } else {
