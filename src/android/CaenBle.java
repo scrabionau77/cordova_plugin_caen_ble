@@ -351,6 +351,7 @@ public class CaenBle extends CordovaPlugin {
         }
         if (gatt != null) {
             gatt.disconnect();
+            r.Disconnect();
             gatt.close();
             gatt = null;
             Log.d("MyBluetoothPlugin", "Disconnesso con successo!");
