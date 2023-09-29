@@ -222,7 +222,6 @@ public class CaenBle extends CordovaPlugin {
             // gatt.connect();
             r.Connect(cordova.getContext(), device);
             Log.d("MyBluetoothPlugin", "Connesso al dispositivo con indirizzo " + address);
-            callbackContext.success("connected");
         }
     }
 
@@ -243,10 +242,12 @@ public class CaenBle extends CordovaPlugin {
                 Log.d("MyBluetoothPlugin", "Connesso al dispositivo");
                 Log.d("MyBluetoothPlugin", "Lo stato della connessione PRIMA del gatt.discoverServices è " + status);
                 gatt.discoverServices();
+                callbackContext.error("Connected");
                 Log.d("MyBluetoothPlugin", "Lo stato della connessione DOPO del gatt.discoverServices è " + status);
             } else if (newState == BluetoothProfile.STATE_DISCONNECTED) {
                 Log.d("MyBluetoothPlugin", "Disconnesso dal dispositivo");
                 Log.d("MyBluetoothPlugin", "Lo stato della connessione è " + status);
+                callbackContext.error("Disconnected");
             }
         }
 
@@ -520,7 +521,7 @@ public class CaenBle extends CordovaPlugin {
     private void startTagCheck(CallbackContext callbackContext) {
 
         tagCheckHandler = new Handler();
-        callbackContext.success("Scansione avviata");
+        //callbackContext.success("Scansione avviata");
         tagCheckRunnable = new Runnable() {
             @Override
             public void run() {
@@ -530,7 +531,7 @@ public class CaenBle extends CordovaPlugin {
                     callbackContext.error("Errore nell'avvio della scansione");
                     throw new RuntimeException(e);
                 }
-                tagCheckHandler.postDelayed(this, 5000); // Esegue ogni 5 secondi
+                tagCheckHandler.postDelayed(this, 1000);
             }
         };
         tagCheckHandler.post(tagCheckRunnable);
