@@ -14,7 +14,7 @@
         <source-file src="libs/CAENRFIDLibrary-release.aar" target-dir="libs" />
 
         <config-file target="res/xml/config.xml" parent="/*">
-            <feature name="MaeCaenBle">
+            <feature name="CaenBle">
                 <param name="android-package" value="com.maestrale.maecaenble.maecaenble"/>
             </feature>
         </config-file>
