@@ -15,7 +15,7 @@
 
         <config-file target="res/xml/config.xml" parent="/*">
             <feature name="CaenBle">
-                <param name="android-package" value="com.maestrale.caenble"/>
+                <param name="android-package" value="com.maestrale.maecaenble"/>
             </feature>
         </config-file>
 
