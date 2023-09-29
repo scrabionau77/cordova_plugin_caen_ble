@@ -67,7 +67,6 @@ public class CaenBle extends CordovaPlugin {
             discoverDevices();
             return true;
         } else if ("connectToDevice".equals(action)) {
-            //connectionCallbackContext = callbackContext;
             String address = args.getString(0);
             try {
                 connectToDevice(address);
@@ -230,7 +229,7 @@ public class CaenBle extends CordovaPlugin {
             gatt.discoverServices();
             // gatt.connect();
             r.Connect(cordova.getContext(), device);
-            callbackContextConnect.success("Connected");
+            callbackContext.success("Connected");
             Log.d("MyBluetoothPlugin", "Connesso al dispositivo con indirizzo " + address);
         }
     }
