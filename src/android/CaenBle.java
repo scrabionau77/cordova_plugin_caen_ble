@@ -66,7 +66,7 @@ public class CaenBle extends CordovaPlugin {
             discoverDevices();
             return true;
         } else if ("connectToDevice".equals(action)) {
-            connectionCallbackContext = callbackContext;
+            //connectionCallbackContext = callbackContext;
             String address = args.getString(0);
             try {
                 connectToDevice(address);
