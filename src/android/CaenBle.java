@@ -222,6 +222,7 @@ public class CaenBle extends CordovaPlugin {
             // gatt.connect();
             r.Connect(cordova.getContext(), device);
             Log.d("MyBluetoothPlugin", "Connesso al dispositivo con indirizzo " + address);
+            callbackContext.success("connected");
         }
     }
 
