@@ -190,7 +190,7 @@ public class CaenBle extends CordovaPlugin {
                 pluginResult.setKeepCallback(true); // Mantieni la callback per ulteriori risultati
                 callbackContext.sendPluginResult(pluginResult);
             } catch (JSONException e) {
-                //callbackContext.error("Error processing device info.");
+                // callbackContext.error("Error processing device info.");
                 PluginResult pluginResult = new PluginResult(PluginResult.Status.JSON_EXCEPTION);
                 callbackContext.sendPluginResult(pluginResult);
             }
@@ -245,7 +245,7 @@ public class CaenBle extends CordovaPlugin {
             if (ContextCompat.checkSelfPermission(cordova.getActivity(),
                     Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(cordova.getActivity(),
-                        new String[]{Manifest.permission.BLUETOOTH_CONNECT}, MY_PERMISSIONS_REQUEST_CODE);
+                        new String[] { Manifest.permission.BLUETOOTH_CONNECT }, MY_PERMISSIONS_REQUEST_CODE);
             }
             if (newState == BluetoothProfile.STATE_CONNECTED) {
                 Log.d("MyBluetoothPlugin", "Connesso al dispositivo");
@@ -258,7 +258,7 @@ public class CaenBle extends CordovaPlugin {
                 sendConnectionStatus("Disconnected");
             }
         }
-    
+
     };
 
     private void sendConnectionStatus(String status) {
@@ -268,7 +268,6 @@ public class CaenBle extends CordovaPlugin {
             connectionCallbackContext.sendPluginResult(result);
         }
     }
-    
 
     /**
      * Questi 2 metodi venivano utilizzati precedentemente per scoprire i servizi
@@ -350,12 +349,16 @@ public class CaenBle extends CordovaPlugin {
                     MY_PERMISSIONS_REQUEST_CODE);
         }
         if (gatt != null) {
-            gatt.disconnect();
-            r.Disconnect();
-            gatt.close();
-            gatt = null;
-            Log.d("MyBluetoothPlugin", "Disconnesso con successo!");
-            callbackContext.success("Disconnesso con successo.");
+            try {
+                gatt.disconnect();
+                r.Disconnect();
+                gatt.close();
+                gatt = null;
+                Log.d("MyBluetoothPlugin", "Disconnesso con successo!");
+                callbackContext.success("Disconnesso con successo.");
+            } catch (CAENRFIDException e) {
+                throw new RuntimeException(e);
+            }
         } else {
             Log.d("MyBluetoothPlugin", "Nessun dispositivo connesso!");
             callbackContext.error("Nessun dispositivo connesso.");
@@ -543,7 +546,7 @@ public class CaenBle extends CordovaPlugin {
     private void startTagCheck(CallbackContext callbackContext) {
 
         tagCheckHandler = new Handler();
-        //callbackContext.success("Scansione avviata");
+        // callbackContext.success("Scansione avviata");
         tagCheckRunnable = new Runnable() {
             @Override
             public void run() {
