@@ -7,7 +7,7 @@
         <engine name="cordova-android" version=">=6.3.0"/>
     </engines>
     <js-module src="www/ble.js" name="CaenBle">
-        <clobbers target="caenBle"/>
+        <clobbers target="CaenBle"/>
     </js-module>
     <platform name="android">
         <source-file src="src/android/CaenBle.java" target-dir="src/com/maestrale/maecaenble" />
