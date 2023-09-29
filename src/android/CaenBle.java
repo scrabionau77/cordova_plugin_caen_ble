@@ -1,5 +1,5 @@
 //package android;
-package CaenBle;
+package com.maestrale.maecaenble;
 
 import org.apache.cordova.*;
 import org.json.JSONArray;
