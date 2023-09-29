@@ -52,4 +52,4 @@ module.exports = {
     stopTagCheck: stopTagCheck,
 };
 
-require("cordova/exec/proxy").add("caenBle",module.exports);
+require("cordova/exec/proxy").add("CaenBle",module.exports);

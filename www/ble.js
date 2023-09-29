@@ -2,31 +2,31 @@ var exec = require('cordova/exec')
 
 var caenBle = {
     discoverDevices: function(successCallback, errorCallback) {
-        cordova.exec(successCallback, errorCallback, "caenBle", "discoverDevices", []);
+        cordova.exec(successCallback, errorCallback, "CaenBle", "discoverDevices", []);
     },
 
     connectToDevice: function(address, successCallback, errorCallback) {
-        cordova.exec(successCallback, errorCallback, "caenBle", "connectToDevice", [address]);
+        cordova.exec(successCallback, errorCallback, "CaenBle", "connectToDevice", [address]);
     },
 
     stopDiscovery: function(successCallback, errorCallback) {
-        cordova.exec(successCallback, errorCallback, "caenBle", "stopDiscovery", []);
+        cordova.exec(successCallback, errorCallback, "CaenBle", "stopDiscovery", []);
     },
 
     disconnectDevice: function(successCallback, errorCallback) {
-        cordova.exec(successCallback, errorCallback, "caenBle", "disconnectDevice", []);
+        cordova.exec(successCallback, errorCallback, "CaenBle", "disconnectDevice", []);
     },
 
     requestPermissions: function(successCallback, errorCallback) {
-        cordova.exec(successCallback, errorCallback, "caenBle", "requestPermissions", []);
+        cordova.exec(successCallback, errorCallback, "CaenBle", "requestPermissions", []);
     },
 
     startTagCheck: function(successCallback, errorCallback) {
-        cordova.exec(successCallback, errorCallback, "caenBle", "startTagCheck", []);
+        cordova.exec(successCallback, errorCallback, "CaenBle", "startTagCheck", []);
     },
 
     stopTagCheck: function(successCallback, errorCallback) {
-        cordova.exec(successCallback, errorCallback, "caenBle", "stopTagCheck", []);
+        cordova.exec(successCallback, errorCallback, "CaenBle", "stopTagCheck", []);
     }
 };
 
