@@ -59,6 +59,8 @@ public class CaenBle extends CordovaPlugin {
     private Handler tagCheckHandler;
     private Runnable tagCheckRunnable;
 
+    static final char[] HEX_ARRAY = "0123456789ABCDEF".toCharArray();
+
     static String bytesToHex(byte[] bytes) {
         if (bytes == null)
             return "NULL";
