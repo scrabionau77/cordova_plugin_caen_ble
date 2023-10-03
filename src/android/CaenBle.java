@@ -582,24 +582,23 @@ public class CaenBle extends CordovaPlugin {
     private void startTagCheck(CallbackContext callbackContext) {
         this.rfidCallbackContext = callbackContext;
     
-        // Esempio di un EventListener, il tuo potrebbe differire
+        Log.d("MyBluetoothPlugin", "Inizio start Tag check");
         caenrfidEventListener = evt -> {
             CAENRFIDNotify tag = evt.getData().get(0);
             byte[] epc = tag.getTagID();
     
-            // Conversione del tagID in hex
             StringBuilder hex_number = new StringBuilder();
             for (byte b : epc) {
                 hex_number.append(String.format("%02X", b));
             }
     
-            // Creazione del JSONObject con i dati del tag
             try {
                 JSONObject tagInfo = new JSONObject();
                 tagInfo.put("hex_number", hex_number.toString());
-                tagInfo.put("rssi", String.valueOf(tag.getRSSI())); // Presumo che il tuo CAENRFIDNotify abbia un metodo getRSSI, adattalo al tuo caso
+                tagInfo.put("rssi", String.valueOf(tag.getRSSI()));
+                Log.d("MyBluetoothPlugin", "Invio tag");
                 PluginResult result = new PluginResult(PluginResult.Status.OK, tagInfo);
-                result.setKeepCallback(true); // Mantieni il callback per ulteriori chiamate
+                result.setKeepCallback(true);
                 callbackContext.sendPluginResult(result);
             } catch (JSONException e) {
                 Log.e("MyBluetoothPlugin", "Errore nella creazione dell'oggetto JSON", e);
@@ -609,6 +608,8 @@ public class CaenBle extends CordovaPlugin {
         cordova.getActivity().runOnUiThread(new Runnable() {
             public void run() {
                 try {
+
+                    Log.d("MyBluetoothPlugin", "Inizio event listener");
                     // Suppongo che `r` sia una tua istanza globalmente accessibile del lettore RFID
                     r.addCAENRFIDEventListener(caenrfidEventListener); // Assumendo che 'r' sia il tuo lettore RFID
     
