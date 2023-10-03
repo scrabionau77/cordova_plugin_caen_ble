@@ -562,6 +562,7 @@ public class CaenBle extends CordovaPlugin {
     private CAENRFIDEventListener caenrfidEventListener = new CAENRFIDEventListener() {
         @Override
         public void CAENRFIDTagNotify(CAENRFIDEvent evt) {
+            Log.d("MyBluetoothPlugin", "Entro nel listener");
             CAENRFIDNotify tag = evt.getData().get(0);
             byte[] epc = tag.getTagID();
             
