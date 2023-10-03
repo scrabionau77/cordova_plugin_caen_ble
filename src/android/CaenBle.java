@@ -590,6 +590,7 @@ public class CaenBle extends CordovaPlugin {
         cordova.getActivity().runOnUiThread(new Runnable() {
             public void run() {
                 try {
+                    Log.d("MyBluetoothPlugin", "Avvio Listener");
                     r.addCAENRFIDEventListener(caenrfidEventListener);
         
                     PluginResult result = new PluginResult(PluginResult.Status.NO_RESULT);
