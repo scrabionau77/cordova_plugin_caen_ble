@@ -37,6 +37,7 @@ import com.caen.RFIDLibrary.*;
 import com.caen.RFIDLibrary.CAENRFIDException;
 import com.caen.RFIDLibrary.CAENRFIDLogicalSource;
 import com.caen.RFIDLibrary.CAENRFIDReader;
+import com.caen.RFIDLibrary.CAENRFIDEventListener;
 
 public class CaenBle extends CordovaPlugin {
 
