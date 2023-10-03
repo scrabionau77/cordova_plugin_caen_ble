@@ -585,7 +585,7 @@ public class CaenBle extends CordovaPlugin {
             public void run() {
                 try {
                     //getSourcesTag(callbackContext);
-                    reader.addCAENRFIDEventListener(caenrfidEventListener);
+                    r.addCAENRFIDEventListener(caenrfidEventListener);
                 } catch (CAENRFIDException e) {
                     callbackContext.error("Errore nell'avvio della scansione");
                     throw new RuntimeException(e);
