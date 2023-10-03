@@ -75,7 +75,7 @@ public class CaenBle extends CordovaPlugin {
 
     CAENRFIDEventListener caenrfidEventListener = evt -> {
         CAENRFIDNotify tag = evt.getData().get(0);
-        runOnUiThread(() -> {
+        new Thread(() -> {
             String hexString = bytesToHex(tag.getTagID());
             JSONObject tagInfo = new JSONObject();
             try {
@@ -84,10 +84,12 @@ public class CaenBle extends CordovaPlugin {
                 JSONArray jsonArray = new JSONArray();
                 jsonArray.put(tagInfo);
 
+                callbackContext.success(jsonArray);
+
             } catch (JSONException e) {
                 Log.e("MyApp", "Errore nella creazione dell'oggetto JSON", e);
             }
-        });
+        }).start();
     };
 
     @Override
