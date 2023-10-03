@@ -73,24 +73,6 @@ public class CaenBle extends CordovaPlugin {
         return new String(hexChars);
     }
 
-    CAENRFIDEventListener caenrfidEventListener = evt -> {
-        CAENRFIDNotify tag = evt.getData().get(0);
-        new Thread(() -> {
-            String hexString = bytesToHex(tag.getTagID());
-            JSONObject tagInfo = new JSONObject();
-            try {
-                tagInfo.put("hex_number", hexString);
-
-                JSONArray jsonArray = new JSONArray();
-                jsonArray.put(tagInfo);
-
-                callbackContext.success(jsonArray);
-
-            } catch (JSONException e) {
-                Log.e("MyApp", "Errore nella creazione dell'oggetto JSON", e);
-            }
-        }).start();
-    };
 
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
@@ -576,48 +558,43 @@ public class CaenBle extends CordovaPlugin {
         }
     }
 
-    /**
-     * Metodo per avviare il controllo periodico dei tag
-     */
-    private void startTagCheck(CallbackContext callbackContext) {
-        this.rfidCallbackContext = callbackContext;
-    
-        Log.d("MyBluetoothPlugin", "Inizio start Tag check");
-        caenrfidEventListener = evt -> {
+
+    private CAENRFIDEventListener caenrfidEventListener = new CAENRFIDEventListener() {
+        @Override
+        public void CAENRFIDTagNotify(CAENRFIDEvent evt) {
             CAENRFIDNotify tag = evt.getData().get(0);
             byte[] epc = tag.getTagID();
-    
+            
             StringBuilder hex_number = new StringBuilder();
             for (byte b : epc) {
                 hex_number.append(String.format("%02X", b));
             }
-    
+            
             try {
                 JSONObject tagInfo = new JSONObject();
                 tagInfo.put("hex_number", hex_number.toString());
                 tagInfo.put("rssi", String.valueOf(tag.getRSSI()));
-                Log.d("MyBluetoothPlugin", "Invio tag");
+                Log.d("MyBluetoothPlugin", "Questo è il mio tag: " + tagInfo);
                 PluginResult result = new PluginResult(PluginResult.Status.OK, tagInfo);
-                result.setKeepCallback(true);
+                result.setKeepCallback(true); 
                 callbackContext.sendPluginResult(result);
             } catch (JSONException e) {
                 Log.e("MyBluetoothPlugin", "Errore nella creazione dell'oggetto JSON", e);
             }
-        };
+        }
+    };
+
+    private void startTagCheck(CallbackContext callbackContext) {
+        this.rfidCallbackContext = callbackContext;
     
         cordova.getActivity().runOnUiThread(new Runnable() {
             public void run() {
                 try {
-
-                    Log.d("MyBluetoothPlugin", "Inizio event listener");
-                    // Suppongo che `r` sia una tua istanza globalmente accessibile del lettore RFID
-                    r.addCAENRFIDEventListener(caenrfidEventListener); // Assumendo che 'r' sia il tuo lettore RFID
-    
-                    // Invia un PluginResult vuoto con setKeepCallback(true) per mantenere il callback attivo
+                    r.addCAENRFIDEventListener(caenrfidEventListener);
+        
                     PluginResult result = new PluginResult(PluginResult.Status.NO_RESULT);
                     result.setKeepCallback(true);
                     callbackContext.sendPluginResult(result);
-    
                 } catch (Exception e) {
                     callbackContext.error("Errore nell'avvio della scansione");
                     throw new RuntimeException(e);
@@ -625,6 +602,28 @@ public class CaenBle extends CordovaPlugin {
             }
         });
     }
+
+    /**
+     * Metodo per avviare il controllo periodico dei tag
+     */
+
+     /*
+    private void startTagCheck(CallbackContext callbackContext) {
+
+
+        cordova.getActivity().runOnUiThread(new Runnable() {
+            public void run() {
+                try {
+                    getSourcesTag(callbackContext);
+                    //r.addCAENRFIDEventListener(caenrfidEventListener);
+                } catch (CAENRFIDException e) {
+                    callbackContext.error("Errore nell'avvio della scansione");
+                    throw new RuntimeException(e);
+                }
+            }
+        });
+    }
+    */
 
     /**
      * Metodo per fermare il controllo periodico dei tag
