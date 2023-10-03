@@ -578,13 +578,26 @@ public class CaenBle extends CordovaPlugin {
      */
     private void startTagCheck(CallbackContext callbackContext) {
 
+
+        cordova.getActivity().runOnUiThread(new Runnable() {
+            public void run() {
+                try {
+                    getSourcesTag(callbackContext);
+                    //r.addCAENRFIDEventListener(caenrfidEventListener);
+                } catch (CAENRFIDException e) {
+                    callbackContext.error("Errore nell'avvio della scansione");
+                    throw new RuntimeException(e);
+                }
+            }
+        });
+/*
         tagCheckHandler = new Handler();
         // callbackContext.success("Scansione avviata");
         tagCheckRunnable = new Runnable() {
             @Override
             public void run() {
                 try {
-                    //getSourcesTag(callbackContext);
+                    getSourcesTag(callbackContext);
                     r.addCAENRFIDEventListener(caenrfidEventListener);
                 } catch (CAENRFIDException e) {
                     callbackContext.error("Errore nell'avvio della scansione");
@@ -594,6 +607,7 @@ public class CaenBle extends CordovaPlugin {
             }
         };
         tagCheckHandler.post(tagCheckRunnable);
+        */
     }
 
     /**
