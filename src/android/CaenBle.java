@@ -59,6 +59,35 @@ public class CaenBle extends CordovaPlugin {
     private Handler tagCheckHandler;
     private Runnable tagCheckRunnable;
 
+    static String bytesToHex(byte[] bytes) {
+        if (bytes == null)
+            return "NULL";
+        char[] hexChars = new char[bytes.length * 2];
+        for (int j = 0; j < bytes.length; j++) {
+            int v = bytes[j] & 0xFF;
+            hexChars[j * 2] = HEX_ARRAY[v >>> 4];
+            hexChars[j * 2 + 1] = HEX_ARRAY[v & 0x0F];
+        }
+        return new String(hexChars);
+    }
+
+    CAENRFIDEventListener caenrfidEventListener = evt -> {
+        CAENRFIDNotify tag = evt.getData().get(0);
+        runOnUiThread(() -> {
+            String hexString = bytesToHex(tag.getTagID());
+            JSONObject tagInfo = new JSONObject();
+            try {
+                tagInfo.put("hex_number", hexString);
+
+                JSONArray jsonArray = new JSONArray();
+                jsonArray.put(tagInfo);
+
+            } catch (JSONException e) {
+                Log.e("MyApp", "Errore nella creazione dell'oggetto JSON", e);
+            }
+        });
+    };
+
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
         this.callbackContext = callbackContext;
@@ -551,7 +580,8 @@ public class CaenBle extends CordovaPlugin {
             @Override
             public void run() {
                 try {
-                    getSourcesTag(callbackContext);
+                    //getSourcesTag(callbackContext);
+                    reader.addCAENRFIDEventListener(caenrfidEventListener);
                 } catch (CAENRFIDException e) {
                     callbackContext.error("Errore nell'avvio della scansione");
                     throw new RuntimeException(e);
