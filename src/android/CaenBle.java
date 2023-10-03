@@ -556,7 +556,7 @@ public class CaenBle extends CordovaPlugin {
                     callbackContext.error("Errore nell'avvio della scansione");
                     throw new RuntimeException(e);
                 }
-                tagCheckHandler.postDelayed(this, 1000);
+                tagCheckHandler.postDelayed(this, 100);
             }
         };
         tagCheckHandler.post(tagCheckRunnable);
