@@ -38,6 +38,7 @@ import com.caen.RFIDLibrary.CAENRFIDException;
 import com.caen.RFIDLibrary.CAENRFIDLogicalSource;
 import com.caen.RFIDLibrary.CAENRFIDReader;
 import com.caen.RFIDLibrary.CAENRFIDEventListener;
+import com.caen.RFIDLibrary.CAENRFIDNotify;
 
 public class CaenBle extends CordovaPlugin {
 
@@ -513,6 +514,8 @@ public class CaenBle extends CordovaPlugin {
     }
 
     private CallbackContext rfidCallbackContext;
+    private Handler handler = new Handler();
+    private boolean isScanning = false;
 
     /**
      * Metodo per l'elaborazione degli EPC e degli RSSI
@@ -580,20 +583,51 @@ public class CaenBle extends CordovaPlugin {
         }
     };
 
+    private Runnable scanRunnable = new Runnable() {
+        @Override
+        public void run() {
+            try {
+                getSourcesTag(rfidCallbackContext);
+            } catch (CAENRFIDException e) {
+                rfidCallbackContext.error("Errore nella scansione dei tag");
+                // Log or handle exception
+            }
+
+            if (isScanning) {
+                handler.postDelayed(this, 1000); // continue scanning every second
+            }
+        }
+    };
+
     private void startTagCheck(CallbackContext callbackContext) {
         this.rfidCallbackContext = callbackContext;
 
         cordova.getActivity().runOnUiThread(new Runnable() {
             public void run() {
                 try {
-                    Log.d("MyBluetoothPlugin", "Avvio Listener");
-                    r.addCAENRFIDEventListener(caenrfidEventListener);
+                    isScanning = true;
+                    handler.post(scanRunnable);
 
                     PluginResult result = new PluginResult(PluginResult.Status.NO_RESULT);
                     result.setKeepCallback(true);
                     callbackContext.sendPluginResult(result);
                 } catch (Exception e) {
                     callbackContext.error("Errore nell'avvio della scansione");
+                    throw new RuntimeException(e);
+                }
+            }
+        });
+    }
+
+    private void stopTagCheck(CallbackContext callbackContext) {
+        cordova.getActivity().runOnUiThread(new Runnable() {
+            public void run() {
+                try {
+                    isScanning = false;
+                    handler.removeCallbacks(scanRunnable);
+                    callbackContext.success("Scanning stopped");
+                } catch (Exception e) {
+                    callbackContext.error("Errore nell'arresto della scansione");
                     throw new RuntimeException(e);
                 }
             }
@@ -625,14 +659,17 @@ public class CaenBle extends CordovaPlugin {
     /**
      * Metodo per fermare il controllo periodico dei tag
      */
-    private void stopTagCheck(CallbackContext callbackContext) {
-        if (tagCheckHandler != null) {
-            tagCheckHandler.removeCallbacks(tagCheckRunnable);
-            tagCheckHandler = null;
-            tagCheckRunnable = null;
-            callbackContext.success("Scansione Terminata");
-        } else {
-            callbackContext.error("Errore nel terminare la scansione");
-        }
-    }
+
+    /*
+     * private void stopTagCheck(CallbackContext callbackContext) {
+     * if (tagCheckHandler != null) {
+     * tagCheckHandler.removeCallbacks(tagCheckRunnable);
+     * tagCheckHandler = null;
+     * tagCheckRunnable = null;
+     * callbackContext.success("Scansione Terminata");
+     * } else {
+     * callbackContext.error("Errore nel terminare la scansione");
+     * }
+     * }
+     */
 }
