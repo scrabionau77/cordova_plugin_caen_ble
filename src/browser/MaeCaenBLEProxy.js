@@ -53,6 +53,7 @@ function stopTagCheck(success, error) {
 }
 
 module.exports = {
+    checkBluetoothStatus: checkBluetoothStatus,
     discoverDevices: discoverDevices,
     connectToDevice: connectToDevice,
     stopDiscovery: stopDiscovery,

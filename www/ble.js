@@ -33,7 +33,7 @@ var CaenBle = {
     stopTagCheck: function(successCallback, errorCallback) {
         cordova.exec(successCallback, errorCallback, "CaenBle", "stopTagCheck", []);
     },
-    
+
     registerConnectionCallback: function(callback) {
         connectionStatusCallback = callback;
         cordova.exec(function(status) {
