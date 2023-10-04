@@ -524,6 +524,7 @@ public class CaenBle extends CordovaPlugin {
         CAENRFIDLogicalSource[] sourcesTag = r.GetSources();
         CAENRFIDTag[] tags = sourcesTag[0].InventoryTag();
         Log.d("MyBluetoothPlugin", "Questo è l'array di tags: " + Arrays.toString(tags));
+        Log.d("MyBluetoothPlugin", "Questa è la sua lunghezza " + tags.length);
         if (tags == null || tags.length == 0) {
             Log.d("MyBluetoothPlugin", "Nessun tag nelle vicinanze");
         } else {
@@ -590,11 +591,10 @@ public class CaenBle extends CordovaPlugin {
                 getSourcesTag(rfidCallbackContext);
             } catch (CAENRFIDException e) {
                 rfidCallbackContext.error("Errore nella scansione dei tag");
-                // Log or handle exception
             }
 
             if (isScanning) {
-                handler.postDelayed(this, 1000); // continue scanning every second
+                handler.postDelayed(this, 500); // continue scanning every second
             }
         }
     };
