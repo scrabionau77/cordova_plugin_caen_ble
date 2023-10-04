@@ -37,11 +37,9 @@ var CaenBle = {
             }
         }, null, "CaenBle", "registerConnectionCallback", []);
     },
-    /*
-    registerConnectionCallback: function(successCallback) {
-        cordova.exec(successCallback, "CaenBle", "registerConnectionCallback", []);
+    checkBluetoothStatus: function(successCallback, errorCallback) {
+        cordova.exec(successCallback, errorCallback, "CaenBle", "checkBluetoothStatus", []);
     },
-    */
 };
 
 module.exports = CaenBle;
