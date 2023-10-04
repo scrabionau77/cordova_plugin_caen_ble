@@ -1,3 +1,12 @@
+function checkBtOn(success, error) {
+    var code = window.prompt("Type Y to simulate BT active, any other to fail response");
+    if(code == "Y") {
+        success('');
+    } else {
+        error('no BT active');
+    }
+}
+
 function discoverDevices(success, error) {
     var code = window.prompt("Type Y to success response, any other to fail response");
     if(code == "Y") {
@@ -44,6 +53,7 @@ function stopTagCheck(success, error) {
 }
 
 module.exports = {
+    checkBtOn: checkBtOn,
     discoverDevices: discoverDevices,
     connectToDevice: connectToDevice,
     stopDiscovery: stopDiscovery,

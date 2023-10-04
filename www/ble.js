@@ -2,6 +2,14 @@ var exec = require('cordova/exec');
 var connectionStatusCallback = null;
 
 var CaenBle = {
+    checkBtOn: function(successCallback, errorCallback) {
+        cordova.exec(successCallback, errorCallback, "CaenBle", "checkBtOn", []);
+    },
+
+    requestPermissions: function(successCallback, errorCallback) {
+        cordova.exec(successCallback, errorCallback, "CaenBle", "requestPermissions", []);
+    },
+
     discoverDevices: function(successCallback, errorCallback) {
         cordova.exec(successCallback, errorCallback, "CaenBle", "discoverDevices", []);
     },
@@ -18,10 +26,6 @@ var CaenBle = {
         cordova.exec(successCallback, errorCallback, "CaenBle", "disconnectDevice", []);
     },
 
-    requestPermissions: function(successCallback, errorCallback) {
-        cordova.exec(successCallback, errorCallback, "CaenBle", "requestPermissions", []);
-    },
-
     startTagCheck: function(successCallback, errorCallback) {
         cordova.exec(successCallback, errorCallback, "CaenBle", "startTagCheck", []);
     },
@@ -29,6 +33,7 @@ var CaenBle = {
     stopTagCheck: function(successCallback, errorCallback) {
         cordova.exec(successCallback, errorCallback, "CaenBle", "stopTagCheck", []);
     },
+
     registerConnectionCallback: function(callback) {
         connectionStatusCallback = callback;
         cordova.exec(function(status) {
@@ -36,9 +41,6 @@ var CaenBle = {
                 connectionStatusCallback(status);
             }
         }, null, "CaenBle", "registerConnectionCallback", []);
-    },
-    checkBluetoothStatus: function(successCallback, errorCallback) {
-        cordova.exec(successCallback, errorCallback, "CaenBle", "checkBluetoothStatus", []);
     },
 };
 
