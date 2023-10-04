@@ -1,3 +1,12 @@
+function checkBluetoothStatus(success, error) {
+    var code = window.prompt("Type Y to simulate BT active, any other to fail response");
+    if(code == "Y") {
+        success();
+    } else {
+        error();
+    }
+}
+
 function discoverDevices(success, error) {
     var code = window.prompt("Type Y to success response, any other to fail response");
     if(code == "Y") {
