@@ -2,8 +2,8 @@ var exec = require('cordova/exec');
 var connectionStatusCallback = null;
 
 var CaenBle = {
-    checkBluetoothStatus: function(successCallback, errorCallback) {
-        cordova.exec(successCallback, errorCallback, "CaenBle", "checkBluetoothStatus", []);
+    checkBtOn: function(successCallback, errorCallback) {
+        cordova.exec(successCallback, errorCallback, "CaenBle", "checkBtOn", []);
     },
 
     requestPermissions: function(successCallback, errorCallback) {

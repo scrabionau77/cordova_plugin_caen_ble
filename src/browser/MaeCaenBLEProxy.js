@@ -1,4 +1,4 @@
-function checkBluetoothStatus(success, error) {
+function checkBtOn(success, error) {
     var code = window.prompt("Type Y to simulate BT active, any other to fail response");
     if(code == "Y") {
         success();
@@ -53,7 +53,7 @@ function stopTagCheck(success, error) {
 }
 
 module.exports = {
-    checkBluetoothStatus: checkBluetoothStatus,
+    checkBtOn: checkBtOn,
     discoverDevices: discoverDevices,
     connectToDevice: connectToDevice,
     stopDiscovery: stopDiscovery,

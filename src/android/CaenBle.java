@@ -112,7 +112,7 @@ public class CaenBle extends CordovaPlugin {
             pluginResult.setKeepCallback(true);
             callbackContext.sendPluginResult(pluginResult);
             return true;
-        } else if("checkBluetoothStatus".equals(action)){
+        } else if("checkBtOn".equals(action)){
             checkAndRequestBluetoothStatus();
             return true;
         }
