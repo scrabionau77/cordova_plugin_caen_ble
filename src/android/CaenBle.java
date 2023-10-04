@@ -524,10 +524,10 @@ public class CaenBle extends CordovaPlugin {
         CAENRFIDLogicalSource[] sourcesTag = r.GetSources();
         CAENRFIDTag[] tags = sourcesTag[0].InventoryTag();
         Log.d("MyBluetoothPlugin", "Questo è l'array di tags: " + Arrays.toString(tags));
-        Log.d("MyBluetoothPlugin", "Questa è la sua lunghezza " + tags.length);
         if (tags == null || tags.length == 0) {
             Log.d("MyBluetoothPlugin", "Nessun tag nelle vicinanze");
         } else {
+            Log.d("MyBluetoothPlugin", "Questa è la sua lunghezza " + tags.length);
             ArrayList<JSONObject> estratti = new ArrayList<>();
             for (CAENRFIDTag tag : tags) {
                 byte[] epc = tag.GetId();
