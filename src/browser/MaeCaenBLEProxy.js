@@ -1,9 +1,9 @@
 function checkBtOn(success, error) {
     var code = window.prompt("Type Y to simulate BT active, any other to fail response");
     if(code == "Y") {
-        success();
+        success('');
     } else {
-        error();
+        error('no BT active');
     }
 }
 
