@@ -554,7 +554,10 @@ public class CaenBle extends CordovaPlugin {
                 }
             }
             JSONArray jsonArray = new JSONArray(estratti);
-            callbackContext.success(jsonArray);
+            PluginResult result = new PluginResult(PluginResult.Status.OK, jsonArray);
+            result.setKeepCallback(true);
+            callbackContext.sendPluginResult(result);
+            // callbackContext.success(jsonArray);
             Log.d("MyBluetoothPlugin",
                     "Ho estratto questi tag [EPC, RSSI] (i primi 2 valori corrispondono ad un tag e così via): "
                             + estratti);
@@ -594,7 +597,7 @@ public class CaenBle extends CordovaPlugin {
             }
 
             if (isScanning) {
-                handler.postDelayed(this, 500); // continue scanning every second
+                handler.postDelayed(this, 500);
             }
         }
     };
