@@ -617,42 +617,4 @@ public class CaenBle extends CordovaPlugin {
         });
     }
 
-    /**
-     * Metodo per avviare il controllo periodico dei tag
-     */
-
-    /*
-     * private void startTagCheck(CallbackContext callbackContext) {
-     * 
-     * 
-     * cordova.getActivity().runOnUiThread(new Runnable() {
-     * public void run() {
-     * try {
-     * getSourcesTag(callbackContext);
-     * //r.addCAENRFIDEventListener(caenrfidEventListener);
-     * } catch (CAENRFIDException e) {
-     * callbackContext.error("Errore nell'avvio della scansione");
-     * throw new RuntimeException(e);
-     * }
-     * }
-     * });
-     * }
-     */
-
-    /**
-     * Metodo per fermare il controllo periodico dei tag
-     */
-
-    /*
-     * private void stopTagCheck(CallbackContext callbackContext) {
-     * if (tagCheckHandler != null) {
-     * tagCheckHandler.removeCallbacks(tagCheckRunnable);
-     * tagCheckHandler = null;
-     * tagCheckRunnable = null;
-     * callbackContext.success("Scansione Terminata");
-     * } else {
-     * callbackContext.error("Errore nel terminare la scansione");
-     * }
-     * }
-     */
 }
